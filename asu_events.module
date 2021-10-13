@@ -19,18 +19,21 @@ function asu_events_preprocess_block(&$variables) {
 
 /**
  * All of the preprocess logic.
- * 
+ *
  * @param array $variables
  *  Array of variables.
- * 
+ *
  * @return array
- * 
+ *
  */
 function _preprocess_events($variables) {
   $rand_id = random_int(0, PHP_INT_MAX);
   $events_block = new \stdClass();
   $variables['events_id'] = 'events-wrapper-' . $rand_id;
   $block = $variables['content']['#block_content'];
+  $events_block->header = new \stdClass();
+  $events_block->dataSource = new \stdClass();
+  $events_block->ctaButton = new \stdClass();
 
   if ($block->field_events_heading->value) {
     $events_block->header->text = $block->field_events_heading->value;
@@ -84,37 +87,34 @@ function asu_events_config_readonly_whitelist_patterns() {
 
 /**
  * Adds block bundle/type to entity embed theme suggestions.
- * 
+ *
  * {@inheritdoc}
  */
 function asu_events_theme_suggestions_alter(array &$suggestions, array $variables, $hook) {
-  if (!empty($variables['element']['#context'])) {
-    if (!empty($variables['element']['#context']['data-embed-button'])) {
-      $data_embed_button = $variables['element']['#context']['data-embed-button'];
-      $block_type = $variables['element']['#entity']->bundle();
-      $suggestions[] = 'entity_embed_container__embed_button_' . $data_embed_button . '__' . $block_type;
-    }
+  if (!empty($variables['element']['#entity'])) {
+    $block_type = $variables['element']['#entity']->bundle();
+    $suggestions[] = 'entity_embed_container__embed_button' . '__' . $block_type;
   }
 }
 
 /**
  * Implements hook_theme().
- * 
+ *
  * {@inheritdoc}
  */
 function asu_events_theme($existing, $type, $theme, $path) {
   $templates = $path . '/templates';
   return [
-    'entity_embed_container__embed_button_embed_block__events' => [
-      'base hook' => 'entity_embed_container',
-      'render element' => 'element'
+    'entity_embed_container__embed_button__events' => [
+    'base hook' => 'entity_embed_container',
+    'render element' => 'element'
     ]
   ];
 }
 
 /**
  * Implements hook_preprocess_HOOK().
- * 
+ *
  * {@inheritdoc}
  */
 function asu_events_preprocess_entity_embed_container(&$variables) {
