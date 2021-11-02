@@ -18,7 +18,7 @@ settings:
       label: Maroon
     -
       value: gray
-      label: 'Gray 4'
+      label: 'Gray 2'
     -
       value: dark
       label: 'Gray 7'

@@ -53,6 +53,10 @@ function _preprocess_events($variables) {
     $events_block->display = $block->field_events_items_to_display->value;
   }
   $events_block->dataSource->url = '/asu-events-feed/';
+  if ($block->field_feed_taxonomy_term->value) {
+    // Allow only alphanumeric characters and underscore.
+    $events_block->dataSource->url .= preg_replace('/[^A-Za-z0-9\_]/', '', $block->field_feed_taxonomy_term->value);
+  }
   if ($block->field_events_feed_filter->value) {
     $events_block->dataSource->filters = $block->field_events_feed_filter->value;
   }

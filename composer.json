@@ -13,7 +13,7 @@
     "drupal/fontawesome": "^2.19",
     "asuwebplatforms/webspark-module-asu_react_integration": "^1.0"
   },
-  "version": "1.1.2",
+  "version": "1.1.6",
   "repositories": {
     "drupal": {
       "type": "composer",
