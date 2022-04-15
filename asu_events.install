@@ -25,8 +25,16 @@ function asu_events_update_9002(&$sandbox) {
   _asu_events_revert_all_module_config();
 }
 
+/**
+ * Implements hook_update_N();
+ * Revert all the module config.
+ */
+function asu_events_update_9003(&$sandbox) {
+  _asu_events_revert_all_module_config();
+}
+
 function _asu_events_revert_all_module_config() {
-  
+
   $module = \Drupal::service('module_handler')
     ->getModule(basename(__FILE__, '.install'))
     ->getName();

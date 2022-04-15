@@ -2,7 +2,7 @@
 
   Drupal.behaviors.asuEvents = {
     attach: function (context, settings) {
-      var componentLoaded = typeof events !== "undefined" && typeof events.initCardsListEventsComponent !== "undefined";
+      var componentLoaded = typeof AsuEvents !== "undefined" && typeof AsuEvents.initCardsListEventsComponent !== "undefined";
       var eventsExist = typeof settings.asu.components !== "undefined" && typeof settings.asu.components.asu_events !== "undefined";
 
       if (!componentLoaded || !eventsExist) {
@@ -13,17 +13,18 @@
         var eventsData = settings.asu.components.asu_events[eventsId];
         switch(eventsData.display) {
           case 'All':
-            events.initCardsListEventsComponent({
+            AsuEvents.initCardsListEventsComponent({
               targetSelector: "#events-wrapper-" + eventsId,
               props: {
                 header: eventsData.header,
                 ctaButton: eventsData.ctaButton,
                 dataSource: eventsData.dataSource,
+                maxItems: 500,
               }
             })
             break;
           case 'Three':
-            events.initCardsListEventsComponent({
+            AsuEvents.initCardsListEventsComponent({
               targetSelector: "#events-wrapper-" + eventsId,
               props: {
                 header: eventsData.header,
@@ -34,7 +35,7 @@
             })
             break;
           case 'ThreeCards':
-            events.initCardsGridEventsComponent({
+            AsuEvents.initCardsGridEventsComponent({
               targetSelector: "#events-wrapper-" + eventsId,
               props: {
                 header: eventsData.header,

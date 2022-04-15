@@ -3,7 +3,6 @@
 namespace Drupal\asu_events\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
-use GuzzleHttp\Exception\GuzzleException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
@@ -19,8 +18,8 @@ class AsuEventsController extends ControllerBase {
     $client = \Drupal::httpClient();
     try {
       $config = \Drupal::config('asu_events.settings');
-      $fedd_url = $config->get('asu_events_feed_url');
-      $url = $fedd_url . $filter;
+      $feed_url = $config->get('asu_events_feed_url');
+      $url = $feed_url . $filter;
       $request = $client->get($url);
       $code = $request->getStatusCode();
       if ($code == 200) {
@@ -29,7 +28,7 @@ class AsuEventsController extends ControllerBase {
         $result = new JsonResponse($file_contents);
       }
     }
-    catch (RequestException $e) {
+    catch (\Exception $e) {
       \Drupal::logger('asu_events')->error($e->getMessage());
     }
     return $result;
